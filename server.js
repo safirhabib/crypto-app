@@ -58,6 +58,21 @@ app.get('/api/cryptocurrencies', async (req, res) => {
     }
 });
 
+
+/* =========================
+   Serve React (PRODUCTION)
+========================= */
+
+const __dirnameResolved = path.resolve();
+
+app.use(express.static(path.join(__dirnameResolved, 'client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirnameResolved, 'client/build', 'index.html'));
+});
+
+
+
 // Start Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
